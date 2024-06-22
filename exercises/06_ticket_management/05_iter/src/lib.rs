@@ -32,8 +32,8 @@ impl TicketStore {
         self.tickets.push(ticket);
     }
 
-    fn iter(&self) ->  {
-        self.tickets.iter()
+    fn iter(&self) -> impl Iterator<Item = &Ticket> {
+      self.tickets.iter()
     }
 }
 

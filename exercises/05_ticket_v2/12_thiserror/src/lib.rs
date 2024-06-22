@@ -6,7 +6,7 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 enum TicketNewError {
-    #[error("Description cannot be empty")]
+    #[error("Title cannot be empty")]
     TitleCannotBeEmpty,
     #[error("Title cannot be longer than 50 characters")]
     TitleTooLong,
