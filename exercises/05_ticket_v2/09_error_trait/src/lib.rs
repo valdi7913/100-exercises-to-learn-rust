@@ -14,7 +14,8 @@ enum TicketNewError {
 impl Display for TicketNewError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            TicketNewError::TitleError(msg) => write!(f, "{}", self)
+            TicketNewError::TitleError(msg) => write!(f, "{}", msg),
+            TicketNewError::DescriptionError(msg) => write!(f, "{}", msg)
         }
     }
 }
@@ -31,7 +32,7 @@ fn easy_ticket(title: String, description: String, status: Status) -> Ticket {
         Err(TicketNewError::DescriptionError(msg)) => {
             Ticket::new(
                 title,
-                "No description provided".into(),
+                "Description not provided".into(),
                 status
             ).expect(&msg)
         },
