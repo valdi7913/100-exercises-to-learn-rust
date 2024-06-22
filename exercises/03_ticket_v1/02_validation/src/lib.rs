@@ -36,7 +36,7 @@ impl Ticket {
         
         match status.as_str() {
             "To-Do" | "In Progress" | "Done" => {}    
-            _ => panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+            _ => { panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed"); }
         }
 
         Self {
