@@ -11,7 +11,24 @@ use tokio::net::TcpListener;
 // - `tokio::net::TcpStream::split` to obtain a reader and a writer from the socket
 // - `tokio::io::copy` to copy data from the reader to the writer
 pub async fn echo(listener: TcpListener) -> Result<(), anyhow::Error> {
-    todo!()
+    // loop {
+    //     match listener.accept().await {
+    //         Ok((mut stream,_)) => {
+    //             let (mut reader, mut writer) = stream.split();
+    //             let _ = tokio::io::copy(&mut reader, &mut writer).await;
+    //         },
+    //         Err( error ) => {
+    //             return Err(anyhow::Error::new(error));
+    //         }
+    //     }
+    // }
+
+    loop {
+        let (mut stream, _ ) = listener.accept().await?;
+        let (mut reader, mut writer) = stream.split();
+        let bytes = tokio::io::copy(&mut reader, &mut writer).await?;
+        println!("{} bytes", bytes);
+    }
 }
 
 #[cfg(test)]
@@ -28,6 +45,7 @@ mod tests {
         let requests = vec!["hello", "world", "foo", "bar"];
 
         for request in requests {
+            println!("request message: {}", request);
             let mut socket = tokio::net::TcpStream::connect(addr).await.unwrap();
             let (mut reader, mut writer) = socket.split();
 
